@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FilmList from '../FilmList/film-list';
+import Rating from './Rating/rating';
 
 class FormFilm extends Component {
   constructor(props) {
@@ -7,6 +8,8 @@ class FormFilm extends Component {
     this.state = {
       name: '',
       year: '',
+      genreCurrent: '',
+      rating: 1,
       genre: [
         'аниме',
         'биографический',
@@ -40,36 +43,43 @@ class FormFilm extends Component {
         'фильм - нуар',
         'фэнтези',
         'эротика',
-      ]
+      ],
+      years: []
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  createOptionYear() {
-    let option = [],
-      yearStart = 1900,
-      yearEnd = new Date().getFullYear();
-      
+  componentDidMount() {
+    let yearStart = 1900,
+      yearEnd = new Date().getFullYear(),
+      years = [];
+
     for (yearStart; yearStart <= yearEnd; yearStart++) {
-      option.push(<option value={yearStart}>{yearStart}</option>);
+      years.push(yearStart)
     }
-    return option;
+
+    this.setState({
+      years: years
+    })
   }
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    alert()
   }
 
   handleSubmit(e) {
-    if (!this.state.name) {
+
+    if (!this.state.name || !this.state.year || !this.state.genreCurrent) {
       e.preventDefault();
-      return false;
+      return null;
     }
 
     let film = {
       name: this.state.name,
-      year: this.state.year
+      year: this.state.year,
+      genreCurrent: this.state.genreCurrent,
     }
 
     this.props.items.push(film);
@@ -77,21 +87,36 @@ class FormFilm extends Component {
     this.setState({
       name: '',
       year: '',
+      genreCurrent: '',
     });
+
+    e.target.reset();
 
     e.preventDefault();
   }
+
   render() {
     return (
       <div>
         <form className="form-film" onSubmit={this.handleSubmit}>
           <input type="text" placeholder="Название фильма" name="name" value={this.state.name} onChange={this.handleChange.bind(this)} />
-          <select name="year" onChange={this.handleChange.bind(this)}>
-            {this.createOptionYear()}
+          <select name="year" value={this.state.year} onChange={this.handleChange.bind(this)}>
+            <option value="" selected disabled>Выберете год выпуска</option>
+            {
+              this.state.years.map((item, index) => (
+                <option value={item} key={index}>{item}</option>
+              ))
+            }
           </select>
-          <select name="genre" onChange={this.handleChange.bind(this)}>
-            {this.createOptionYear()}
+          <select name="genreCurrent" value={this.state.genreCurrent} onChange={this.handleChange.bind(this)}>
+            <option value="" selected disabled>Выберете жанр</option>
+            {
+              this.state.genre.map((item, index) => (
+                <option value={item} key={index}>{item}</option>
+              ))
+            }
           </select>
+          <Rating />
           <input type="submit" value="Отправить" />
         </form>
         <FilmList items={this.props.items} />

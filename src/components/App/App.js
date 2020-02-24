@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import FormFilm from '../Formfilm/form-film';
-import logo from '../../img/logo.svg';
 import './App.scss';
 
 class App extends Component {

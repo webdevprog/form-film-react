@@ -12,6 +12,9 @@ class FilmList extends Component {
                         <div>
                             {item.year}
                         </div>
+                        <div>
+                            {item.genreCurrent}
+                        </div>
                     </li>
                 ))}
             </ul>
