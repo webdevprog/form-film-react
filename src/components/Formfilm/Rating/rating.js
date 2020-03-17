@@ -4,7 +4,7 @@ class Rating extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        ratingCount: 5
+      ratingCount: 5
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -15,7 +15,8 @@ class Rating extends Component {
 
   render() {
     return (
-      <div className="rating">
+      <div className="rating" onClick={this.handleChange}>
+        {this.state.ratingCount}
       </div>
     );
   }
