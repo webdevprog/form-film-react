@@ -1,29 +1,15 @@
-const ADD_FILM = 'ADD-FILM';
-
+const SET_FILM = 'SET-FILM';
 let initialState = {
-    films: [
-        {
-            id: 1,
-            name: 'Shrek',
-            year: 2002,
-            genre: 'Move'
-        },
-        {
-            id: 2,
-            name: 'Shrek 2',
-            year: 2002,
-            genre: 'Move'
-        }
-    ]
-}
-
+    films: []
+};
 const filmReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case ADD_FILM : {            
+        case SET_FILM : {  
+                
             return {
                 ...state,
-                films: [...state.films, {...action.film}]
+                films: action.film
             };
         }
         default: {
@@ -32,6 +18,6 @@ const filmReducer = (state = initialState, action) => {
     }
 }
 
-export const addFilm = (film) => ({type: ADD_FILM, film});
+export const setFilm = (film) => ({type: SET_FILM, film});
 
 export default filmReducer;

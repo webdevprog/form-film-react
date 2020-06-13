@@ -1,18 +1,19 @@
 import React from 'react';
 
 const FilmList = (props) => {
+    
     return (
         <ul>
             {props.films.map(item => (
                 <li key={item.id} id={item.id}>
                     <div>
-                        {item.name}
+                        {item.Title}
                     </div>
                     <div>
-                        {item.year}
+                        {item.Year}
                     </div>
                     <div>
-                        {item.genre}
+
                     </div>
                 </li>
             ))}

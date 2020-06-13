@@ -1,20 +1,23 @@
 import React from 'react';
 import FilmList from './FilmList';
+import * as axios from 'axios';
 import { connect } from 'react-redux';
-import FilmForm from '../Formfilm/form-film';
-import {addFilm} from '../../redux/film-reducers';
+import {setFilm} from '../../redux/film-reducers';
+
 
 class FilmListContainer extends React.Component {
 
-    onAddFilm = (values) => {
-        this.props.addFilm(values);
-        this.clearFields()
+    componentDidMount() {
+        axios.get('http://www.omdbapi.com/?s=city&apikey=b04830ac')
+            .then(response => {
+                this.props.setFilm(response.data.Search);
+        });
     }
 
     render() {
+
         return (
             <>
-                <FilmForm onSubmit={this.onAddFilm} />
                 <FilmList films={this.props.films} />
             </>
         )
@@ -28,4 +31,4 @@ let mapStateToProps = (state) => {
 
 }
 
-export default connect(mapStateToProps, {addFilm})(FilmListContainer);
+export default connect(mapStateToProps, {setFilm})(FilmListContainer);
