@@ -1,10 +1,9 @@
 import React from 'react';
 
 const FilmList = (props) => {
-    
     return (
-        <ul>
-            {props.films.map(item => (
+        <div>
+            { (props.films.length > 1) ? props.films.map(item => (
                 <li key={item.id} id={item.id}>
                     <div>
                         {item.Title}
@@ -16,8 +15,8 @@ const FilmList = (props) => {
 
                     </div>
                 </li>
-            ))}
-        </ul>
+            )) : 'Not found film'}
+        </div>
     );
 }
 
