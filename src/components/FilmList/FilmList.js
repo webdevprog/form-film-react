@@ -1,5 +1,6 @@
 import React from 'react';
 import style from './formList.module.scss';
+import placeholder from '../../img/poster-placeholder.png';
 
 const FilmList = (props) => {
     return (
@@ -7,7 +8,7 @@ const FilmList = (props) => {
             { (props.films.length > 1) ? props.films.map(item => (
                 <div key={item.id} id={item.id}>
                     <div>
-                        <img src={item.Poster} alt={item.Title} />
+                        <img src={item.Poster === 'N/A' ? placeholder : item.Poster} alt={item.Title} />
                     </div>
                     <div>
                         {item.Title}
