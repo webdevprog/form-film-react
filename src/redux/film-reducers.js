@@ -1,5 +1,6 @@
 const SET_FILM = 'SET-FILM';
 const UPLOAD_FILM = 'UPLOAD-FILM';
+const UPLOAD_DETAIL = 'UPLOAD-DETAIL';
 const SET_TITLE = 'SET-TITLE';
 const GET_TOTAL = 'GET-TOTAL';
 const NEXT_PAGE = 'NEXT-PAGE';
@@ -26,6 +27,18 @@ const filmReducer = (state = initialState, action) => {
             return {
                 ...state,
                 films: (action.films !== undefined) ? state.films.concat(action.films) : []
+            };
+        }
+
+        case UPLOAD_DETAIL : { 
+            return {
+                ...state,
+                films: state.films.map(film => {
+                    if (film.imdbID === action.film.imdbID) {
+                        return action.film
+                    }
+                    return film;
+                })
             };
         }
 
@@ -60,5 +73,6 @@ export const setTitle = (title) => ({type: SET_TITLE, title});
 export const getTotal = (total) => ({type: GET_TOTAL, total});
 export const nextPage = (pageCurrent) => ({type: NEXT_PAGE, pageCurrent});
 export const uploadFilm = (films) => ({type: UPLOAD_FILM, films});
+export const uploadDetail = (film) => ({type: UPLOAD_DETAIL, film});
 
 export default filmReducer;

@@ -9,7 +9,7 @@ class SearchFormContainer extends React.Component {
 
     handleSubmit = (event) => {
 
-        axios.get(`http://www.omdbapi.com/?s=${this.props.title}&apikey=b04830ac`)
+        axios.get(`http://www.omdbapi.com/?s=${this.props.title}&type=movie&apikey=b04830ac`)
             .then(response => {
                 this.props.setFilm(response.data.Search);
                 this.props.getTotal(response.data.totalResults);
