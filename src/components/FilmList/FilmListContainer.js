@@ -2,27 +2,30 @@ import React from 'react';
 import FilmList from './FilmList';
 import { connect } from 'react-redux';
 import * as axios from 'axios';
-import { getTotal, nextPage, uploadFilm} from '../../redux/film-reducers';
+import {getTotal, nextPage, uploadFilm} from '../../redux/film-reducers';
+import ShowMore from '../common/ShowMore/ShowMore';
 
 
 class FilmListContainer extends React.Component {
 
-    onScrollList = (event) => {
-        const scrollBottom = event.target.scrollTop + event.target.offsetHeight === event.target.scrollHeight;
-          if (scrollBottom) {
-            this.props.nextPage(this.props.pageCurrent);
-            axios.get(`http://www.omdbapi.com/?s=${this.props.title}&page=${this.props.pageCurrent}&apikey=b04830ac`)
-            .then(response => {
-                this.props.uploadFilm(response.data.Search);
-            }); 
-          }
+    onShowMore = (event) => {
+       this.props.nextPage(this.props.pageCurrent);  
+       axios.get(`http://www.omdbapi.com/?s=${this.props.title}&page=${this.props.pageCurrent + 1}&apikey=b04830ac`)
+        .then(response => {
+            this.props.uploadFilm(response.data.Search);
+        });
     }
 
     render() {
-        
+
         return (
             <>
-                <FilmList films={this.props.films} onScrollList={this.onScrollList} />
+                <FilmList films={this.props.films} />
+                <ShowMore 
+                    total={this.props.total}
+                    pageCurrent={this.props.pageCurrent}
+                    onShowMore={this.onShowMore} 
+                />
             </>
         )
     }
@@ -31,10 +34,11 @@ class FilmListContainer extends React.Component {
 let mapStateToProps = (state) => {
 
     return {
+        pageCurrent: state.filmPage.pageCurrent,
         films: state.filmPage.films,
         title: state.filmPage.title,
         total: state.filmPage.total,
-        pageCurrent: state.filmPage.pageCurrent,
+        
     }
 
 }

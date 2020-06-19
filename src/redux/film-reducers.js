@@ -8,8 +8,7 @@ let initialState = {
     films: [],
     title: '',
     total: 0,
-    pageCurrent: 2,
-    totalPages: 0
+    pageCurrent: 1
 };
 
 const filmReducer = (state = initialState, action) => {
@@ -19,7 +18,7 @@ const filmReducer = (state = initialState, action) => {
             return {
                 ...state,
                 films: (action.film !== undefined) ? action.film : [],
-                totalPages: (state.total / 10)
+                pageCurrent: 1
             };
         }
 
@@ -47,7 +46,7 @@ const filmReducer = (state = initialState, action) => {
         case NEXT_PAGE : {
             return {
                 ...state,
-                pageCurrent: action.pageCurrent += 1 
+                pageCurrent: ++action.pageCurrent
             };
         }
         default: {

@@ -1,7 +1,11 @@
 .showMore {
-    display: inline-block;
-    background-color: #000;
+    display: block;
     color: white;
-    text-transform: uppercase;
     padding: 5px 20px;
+    text-align: center;
+    margin-top: 30px;
+    border-radius: 5px;
+    border: 2px solid #ffffff52;
+    font-size: 20px;
+    cursor: pointer;
 }

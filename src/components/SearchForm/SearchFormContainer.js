@@ -11,10 +11,9 @@ class SearchFormContainer extends React.Component {
 
         axios.get(`http://www.omdbapi.com/?s=${this.props.title}&apikey=b04830ac`)
             .then(response => {
-                this.props.nextPage(1);
                 this.props.setFilm(response.data.Search);
                 this.props.getTotal(response.data.totalResults);
-            });
+        });
 
         event.preventDefault();
     }
@@ -31,7 +30,6 @@ class SearchFormContainer extends React.Component {
                     setTitle={this.handleChange}
                     title={this.props.title}
                 />
-                <div>Result: {this.props.total}</div>
             </>
         )
     }
